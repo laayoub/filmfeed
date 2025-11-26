@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Film</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Détails du Film</h1>
+
+<div class="movie-details">
+    <img id="movieImage" src="" alt="Film Image">
+    <h3 id="movieTitle">Titre du Film</h3>
+    <p id="movieDescription">Description du film...</p>
+
+    <h3>Laissez un commentaire</h3>
+    <textarea id="comment" placeholder="Écrivez votre avis ici..." rows="4" cols="50"></textarea>
+    <br>
+    <button onclick="submitFeedback()">Envoyer</button>
+
+    <h3>Commentaires</h3>
+    <div id="comments"></div>
+</div>
+
+<script src="feedback.js"></script>
+<script>
+// Tableau simulant les films (en production, ces données viendraient d'un backend ou d'un fichier JSON)
+const movies = [
+    {
+        id: 1,
+        title: "Mad Max: Fury Road",
+        description: "Dans un futur apocalyptique, Max s'associe à Furiosa pour échapper à un dictateur tyrannique.",
+        image: "madmax.jpeg"
+    },
+    {
+        id: 2,
+        title: "The Avengers",
+        description: "Un groupe de super-héros emblématiques — Iron Man, Captain America, Thor, Hulk, Black Widow, et Hawkeye — se réunit pour sauver la Terre d'une invasion extraterrestre.",
+        image: "The Avengers.jpeg"
+    },
+    {
+        id: 3,
+        title: "John Wick",
+        description: "Un ancien tueur à gages, John Wick, reprend les armes après que des voleurs aient tué son chien, dernier souvenir de sa défunte épouse.",
+        image: "John Wick.jpeg"
+    }
+    
+];
+
+
+function loadMovieDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = parseInt(urlParams.get('id'));
+
+
+    const movie = movies.find(m => m.id === movieId);
+
+    if (movie) {
+        document.getElementById('movieImage').src = movie.image;
+        document.getElementById('movieTitle').textContent = movie.title;
+        document.getElementById('movieDescription').textContent = movie.description;
+    } else {
+        document.getElementById('movieTitle').textContent = "Film non trouvé";
+        document.getElementById('movieDescription').textContent = "Aucune description disponible.";
+    }
+}
+
+window.onload = loadMovieDetails;
+</script>
+
+</body>
+</html>
